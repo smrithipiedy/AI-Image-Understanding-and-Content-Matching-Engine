@@ -40,7 +40,7 @@
     "expected_category": "red_fox"
   },
   {
-    "url": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef9",
+    "url": "https://images.unsplash.com/photo-1589656966895-2f33e7653819",
     "filename": "red_fox_06.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/red-fox-6",
@@ -48,7 +48,7 @@
     "expected_category": "red_fox"
   },
   {
-    "url": "https://images.unsplash.com/photo-1589656966895-2f33e7653819",
+    "url": "https://images.unsplash.com/photo-1517849845537-4d257902454a",
     "filename": "red_fox_07.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/red-fox-7",
@@ -56,7 +56,7 @@
     "expected_category": "red_fox"
   },
   {
-    "url": "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+    "url": "https://images.unsplash.com/photo-1494256997604-768d1f608cac",
     "filename": "red_fox_08.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/red-fox-8",
@@ -64,7 +64,7 @@
     "expected_category": "red_fox"
   },
   {
-    "url": "https://images.unsplash.com/photo-1507666405769-422406bd8a1b",
+    "url": "https://images.unsplash.com/photo-1535083783855-76ae62b2914e",
     "filename": "red_fox_09.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/red-fox-9",
@@ -72,7 +72,7 @@
     "expected_category": "red_fox"
   },
   {
-    "url": "https://images.unsplash.com/photo-1494256997604-768d1f608cac",
+    "url": "https://images.unsplash.com/photo-1497752531616-c3afd9760a11",
     "filename": "red_fox_10.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/red-fox-10",
@@ -96,7 +96,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1589656966895-2f33e7653819",
+    "url": "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46",
     "filename": "wolf_03.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-3",
@@ -104,7 +104,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1575550959106-5a7defe28b56",
+    "url": "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef",
     "filename": "wolf_04.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-4",
@@ -112,7 +112,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6",
+    "url": "https://images.unsplash.com/photo-1574158622682-e40e69881006",
     "filename": "wolf_05.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-5",
@@ -120,7 +120,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46",
+    "url": "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5",
     "filename": "wolf_06.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-6",
@@ -128,7 +128,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef",
+    "url": "https://images.unsplash.com/photo-1549480017-d76466a4b7e8",
     "filename": "wolf_07.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-7",
@@ -136,7 +136,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7",
+    "url": "https://images.unsplash.com/photo-1590420485404-f86d22b8abf8",
     "filename": "wolf_08.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-8",
@@ -144,7 +144,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef9",
+    "url": "https://images.unsplash.com/photo-1581888227599-779811939961",
     "filename": "wolf_09.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-9",
@@ -152,7 +152,7 @@
     "expected_category": "wolf"
   },
   {
-    "url": "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+    "url": "https://images.unsplash.com/photo-1604085572504-a392ddf0d86a",
     "filename": "wolf_10.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/wolf-10",
@@ -232,7 +232,7 @@
     "expected_category": "dog"
   },
   {
-    "url": "https://images.unsplash.com/photo-1517423470514-914c622a5732",
+    "url": "https://images.unsplash.com/photo-1507146426996-ef05306b995a",
     "filename": "dog_10.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/dog-10",
@@ -256,7 +256,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1589656966895-2f33e7653819",
+    "url": "https://images.unsplash.com/photo-1568152950566-c1bf43f4ab28",
     "filename": "bear_03.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-3",
@@ -264,7 +264,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef9",
+    "url": "https://images.unsplash.com/photo-1559253664-ca249d4608c6",
     "filename": "bear_04.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-4",
@@ -272,7 +272,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46",
+    "url": "https://images.unsplash.com/photo-1527118732049-c88155f2107c",
     "filename": "bear_05.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-5",
@@ -280,7 +280,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef",
+    "url": "https://images.unsplash.com/photo-1441057206919-63d19fac2369",
     "filename": "bear_06.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-6",
@@ -288,7 +288,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7",
+    "url": "https://images.unsplash.com/photo-1500479694472-551d1fb6258d",
     "filename": "bear_07.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-7",
@@ -296,7 +296,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+    "url": "https://images.unsplash.com/photo-1534567153574-2b12153a87f0",
     "filename": "bear_08.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-8",
@@ -304,7 +304,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1507666405769-422406bd8a1b",
+    "url": "https://images.unsplash.com/photo-1560807707-8cc77767d783",
     "filename": "bear_09.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-9",
@@ -312,7 +312,7 @@
     "expected_category": "bear"
   },
   {
-    "url": "https://images.unsplash.com/photo-1494256997604-768d1f608cac",
+    "url": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23",
     "filename": "bear_10.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/bear-10",
@@ -328,7 +328,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1508873696983-2df515122519",
+    "url": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55",
     "filename": "deer_02.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-2",
@@ -336,7 +336,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55",
+    "url": "https://images.unsplash.com/photo-1521714161819-15534968fc5f",
     "filename": "deer_03.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-3",
@@ -344,7 +344,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1521714161819-15534968fc5f",
+    "url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
     "filename": "deer_04.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-4",
@@ -352,7 +352,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "url": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
     "filename": "deer_05.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-5",
@@ -360,7 +360,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+    "url": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4",
     "filename": "deer_06.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-6",
@@ -368,7 +368,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1511497584788-876761c11969",
+    "url": "https://images.unsplash.com/photo-1448375240586-882707db888b",
     "filename": "deer_07.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-7",
@@ -376,7 +376,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4",
+    "url": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
     "filename": "deer_08.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-8",
@@ -384,7 +384,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1448375240586-882707db888b",
+    "url": "https://images.unsplash.com/photo-1549366021-9f761d450615",
     "filename": "deer_09.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-9",
@@ -392,7 +392,7 @@
     "expected_category": "deer"
   },
   {
-    "url": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
+    "url": "https://images.unsplash.com/photo-1560506840-ec148e82a604",
     "filename": "deer_10.jpg",
     "source_provider": "unsplash",
     "source_url": "https://unsplash.com/photos/deer-10",

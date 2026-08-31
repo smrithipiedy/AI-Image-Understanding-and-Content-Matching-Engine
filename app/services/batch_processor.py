@@ -12,9 +12,11 @@ from app.db.repositories import (
     ImageRepository,
     ImageMetadataRepository,
     JobRepository,
+    EmbeddingRepository,
 )
 from app.models import ImageStatus, JobStatus
 from app.services.vision import VisionService, VisionProcessingError, VisionSchemaValidationError
+from app.services.embedding import EmbeddingService
 from app.services.cost import CostService
 
 logger = logging.getLogger(__name__)
@@ -27,6 +29,7 @@ class BatchProcessor:
         self,
         session: AsyncSession,
         vision_service: Optional[VisionService] = None,
+        embedding_service: Optional[EmbeddingService] = None,
         cost_service: Optional[CostService] = None,
         confidence_threshold: float = 0.70,
         max_retries: int = 3,
@@ -35,7 +38,9 @@ class BatchProcessor:
         self.image_repo = ImageRepository(session)
         self.metadata_repo = ImageMetadataRepository(session)
         self.job_repo = JobRepository(session)
+        self.embedding_repo = EmbeddingRepository(session)
         self.vision_service = vision_service or VisionService()
+        self.embedding_service = embedding_service or EmbeddingService()
         self.cost_service = cost_service or CostService(session)
         self.confidence_threshold = confidence_threshold
         self.max_retries = max_retries
@@ -76,6 +81,16 @@ class BatchProcessor:
                 confidence=vision_output.confidence,
                 vision_model=settings.vision_model,
                 is_low_confidence=is_low_conf,
+            )
+
+            # Generate & store image caption embedding
+            embed_text = f"{vision_output.caption}. Subject: {vision_output.subject}. Category: {vision_output.category}."
+            vector = await self.embedding_service.generate_embedding(embed_text)
+            await self.embedding_repo.create(
+                tenant_id=tenant_id,
+                source_type="image_caption",
+                source_id=image_id,
+                vector=vector,
             )
 
             # Estimate token usage (rough approximation or default)
@@ -152,6 +167,7 @@ class BatchProcessor:
                         image_bytes = await self.fetch_image_bytes(client, url)
                         success = await self.process_single_image(tenant_id, image.id, image_bytes)
                         if success:
+                            await self.session.commit()
                             break
                     except Exception as e:
                         logger.warning(f"Attempt {attempt} failed for {url}: {e}")
@@ -160,9 +176,12 @@ class BatchProcessor:
 
                 if not success:
                     await self.image_repo.update_status(image.id, ImageStatus.FAILED)
+                    await self.session.commit()
 
                 processed += 1
                 progress = int((processed / total) * 100)
                 await self.job_repo.update_status(job_id, JobStatus.PROCESSING, progress=progress)
+                await self.session.commit()
 
         await self.job_repo.update_status(job_id, JobStatus.COMPLETED, progress=100)
+        await self.session.commit()

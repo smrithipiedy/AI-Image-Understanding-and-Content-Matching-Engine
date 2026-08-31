@@ -4,8 +4,8 @@ import uuid
 from datetime import datetime
 from typing import List, Optional
 from sqlalchemy import String, DateTime, ForeignKey, Index, func
-from sqlalchemy.dialects.postgresql import JSONB, ARRAY, FLOAT
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
+from pgvector.sqlalchemy import Vector
 
 from app.core.database import Base
 
@@ -19,7 +19,7 @@ class Embedding(Base):
     tenant_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("tenants.id"), nullable=False)
     source_type: Mapped[str] = mapped_column(String(50), nullable=False)  # 'image_caption', 'post_text'
     source_id: Mapped[uuid.UUID] = mapped_column(nullable=False)          # references images.id or posts.id
-    vector: Mapped[list[float]] = mapped_column(JSONB, nullable=False)    # 768-dim float list
+    vector: Mapped[list[float]] = mapped_column(Vector(768), nullable=False)    # 768-dim float list via pgvector
     model: Mapped[str] = mapped_column(String(100), nullable=False)       # 'nomic-embed-text'
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

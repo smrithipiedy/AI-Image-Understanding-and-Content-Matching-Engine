@@ -73,30 +73,35 @@ async def run_evaluation():
         correct_matches = 0
         total_eval = len(eval_posts)
 
+        if hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8")
+
         print("\n=================== EVALUATION RESULTS ===================")
         for idx, post in enumerate(eval_posts, 1):
             match_res = await matching_service.match_post_to_images(post_id=post.id, tenant_id=tenant.id)
             expected = post.expected_category
 
-            if match_res["status"] == "matched" and match_res["match"]:
-                matched_image = match_res["match"]
+            decision = match_res.get("decision") or match_res.get("status")
+            matched_image = match_res.get("top_suggestion") or match_res.get("match")
+
+            if decision in ("accepted", "matched") and matched_image:
                 detected_category = matched_image.get("category") or matched_image.get("expected_category")
 
                 is_correct = (detected_category == expected) or (expected in str(matched_image.get("subject", "")))
                 if is_correct:
                     correct_matches += 1
-                    symbol = "✔ [PASS]"
+                    symbol = "[PASS]"
                 else:
-                    symbol = "✘ [FAIL]"
+                    symbol = "[FAIL]"
 
                 print(f"Post {idx:02d}: '{post.title[:45]}...'")
                 print(f"   Expected Category: {expected}")
-                print(f"   Matched Image Subject: {matched_image.get('subject')} (Category: {detected_category})")
-                print(f"   Similarity: {match_res['match'].get('similarity', 0.0):.4f} | Result: {symbol}\n")
+                print(f"   Matched Image: {matched_image.get('filename')} (Category: {detected_category})")
+                print(f"   Similarity: {matched_image.get('similarity', 0.0):.4f} | Result: {symbol}\n")
             else:
                 print(f"Post {idx:02d}: '{post.title[:45]}...'")
                 print(f"   Expected Category: {expected}")
-                print(f"   Result: ✘ [NO MATCH] ({match_res.get('explanation')})\n")
+                print(f"   Result: [NO MATCH] ({match_res.get('explanation')})\n")
 
         precision = (correct_matches / total_eval) * 100.0 if total_eval > 0 else 0.0
 

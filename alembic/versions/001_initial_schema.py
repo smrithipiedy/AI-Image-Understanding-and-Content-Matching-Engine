@@ -8,6 +8,7 @@ Create Date: 2026-08-31
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
+from pgvector.sqlalchemy import Vector
 
 # revision identifiers, used by Alembic.
 revision = '001'
@@ -75,7 +76,7 @@ def upgrade() -> None:
         sa.Column('tenant_id', postgresql.UUID(as_uuid=True), sa.ForeignKey('tenants.id', ondelete='CASCADE'), nullable=False),
         sa.Column('source_type', sa.String(50), nullable=False),
         sa.Column('source_id', postgresql.UUID(as_uuid=True), nullable=False),
-        sa.Column('vector', sa.dialects.postgresql.VECTOR(768), nullable=False),
+        sa.Column('vector', Vector(768), nullable=False),
         sa.Column('model', sa.String(100), nullable=False),
         sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     )
@@ -89,6 +90,7 @@ def upgrade() -> None:
         sa.Column('tenant_id', postgresql.UUID(as_uuid=True), sa.ForeignKey('tenants.id', ondelete='CASCADE'), nullable=False),
         sa.Column('title', sa.String(500), nullable=False),
         sa.Column('content', sa.Text, nullable=False),
+        sa.Column('expected_category', sa.String(100), nullable=True),
         sa.Column('embedding_id', postgresql.UUID(as_uuid=True), sa.ForeignKey('embeddings.id'), nullable=True),
         sa.Column('expected_image_id', postgresql.UUID(as_uuid=True), sa.ForeignKey('images.id'), nullable=True),
         sa.Column('is_evaluation', sa.Boolean, nullable=False, server_default='false'),
