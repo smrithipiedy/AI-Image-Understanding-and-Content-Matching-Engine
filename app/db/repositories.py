@@ -7,7 +7,7 @@ from sqlalchemy import select, func, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.models import Tenant, Image, ImageMetadata, ImageStatus, Job, JobStatus, Cost
+from app.models import Tenant, Image, ImageMetadata, ImageStatus, Job, JobStatus, Cost, Embedding, Post, Suggestion, Approval
 
 
 class TenantRepository:
@@ -276,3 +276,133 @@ class CostRepository:
         costs = result.scalars().all()
 
         return list(costs), total, float(total_cost)
+
+
+class EmbeddingRepository:
+    """Repository for vector embedding operations."""
+
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def create(
+        self,
+        tenant_id: uuid.UUID,
+        source_type: str,
+        source_id: uuid.UUID,
+        vector: list[float],
+        model: str = "nomic-embed-text",
+    ) -> Embedding:
+        embedding = Embedding(
+            id=uuid.uuid4(),
+            tenant_id=tenant_id,
+            source_type=source_type,
+            source_id=source_id,
+            vector=vector,
+            model=model,
+        )
+        self.session.add(embedding)
+        await self.session.flush()
+        return embedding
+
+    async def get_by_source(self, source_type: str, source_id: uuid.UUID) -> Optional[Embedding]:
+        result = await self.session.execute(
+            select(Embedding).where(
+                Embedding.source_type == source_type,
+                Embedding.source_id == source_id,
+            )
+        )
+        return result.scalar_one_or_none()
+
+    async def list_image_embeddings(self, tenant_id: uuid.UUID) -> list[Embedding]:
+        result = await self.session.execute(
+            select(Embedding).where(
+                Embedding.tenant_id == tenant_id,
+                Embedding.source_type == "image_caption",
+            )
+        )
+        return list(result.scalars().all())
+
+
+class PostRepository:
+    """Repository for blog post operations."""
+
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def create(
+        self,
+        tenant_id: uuid.UUID,
+        title: str,
+        content: str,
+        expected_category: Optional[str] = None,
+        expected_image_id: Optional[uuid.UUID] = None,
+        is_evaluation: bool = False,
+    ) -> Post:
+        post = Post(
+            id=uuid.uuid4(),
+            tenant_id=tenant_id,
+            title=title,
+            content=content,
+            expected_category=expected_category,
+            expected_image_id=expected_image_id,
+            is_evaluation=is_evaluation,
+        )
+        self.session.add(post)
+        await self.session.flush()
+        return post
+
+    async def get_by_id(self, post_id: uuid.UUID, tenant_id: uuid.UUID) -> Optional[Post]:
+        result = await self.session.execute(
+            select(Post).where(Post.id == post_id, Post.tenant_id == tenant_id)
+        )
+        return result.scalar_one_or_none()
+
+    async def update_embedding_id(self, post_id: uuid.UUID, embedding_id: uuid.UUID) -> None:
+        await self.session.execute(
+            update(Post).where(Post.id == post_id).values(embedding_id=embedding_id)
+        )
+
+    async def list_posts(self, tenant_id: uuid.UUID) -> list[Post]:
+        result = await self.session.execute(
+            select(Post).where(Post.tenant_id == tenant_id)
+        )
+        return list(result.scalars().all())
+
+
+class SuggestionRepository:
+    """Repository for suggestion match operations."""
+
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def create(
+        self,
+        post_id: uuid.UUID,
+        image_id: uuid.UUID,
+        similarity: float,
+        guard_decision: str,
+        guard_reasons: list[str],
+        guard_explanation: Optional[str] = None,
+        vision_confidence: Optional[float] = None,
+        rank: int = 1,
+    ) -> Suggestion:
+        suggestion = Suggestion(
+            id=uuid.uuid4(),
+            post_id=post_id,
+            image_id=image_id,
+            similarity=similarity,
+            guard_decision=guard_decision,
+            guard_reasons=guard_reasons,
+            guard_explanation=guard_explanation,
+            vision_confidence=vision_confidence,
+            rank=rank,
+        )
+        self.session.add(suggestion)
+        await self.session.flush()
+        return suggestion
+
+    async def list_by_post_id(self, post_id: uuid.UUID) -> list[Suggestion]:
+        result = await self.session.execute(
+            select(Suggestion).where(Suggestion.post_id == post_id).order_by(Suggestion.rank.asc())
+        )
+        return list(result.scalars().all())
