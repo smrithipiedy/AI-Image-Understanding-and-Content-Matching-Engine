@@ -1,6 +1,7 @@
 # Implementation Plan: AI Image Understanding & Content Matching Engine
 
 ## Context
+
 This plan implements the complete FlyRank Internship Backend Track Capstone: "AI Image Understanding & Content Matching Engine" as specified in CLAUDE.md. The repository is empty except for CLAUDE.md and .git. The system must understand images via vision AI, classify/tag them, match to blog posts semantically, and use a mismatch guard to prevent incorrect recommendations.
 
 ---
@@ -8,6 +9,7 @@ This plan implements the complete FlyRank Internship Backend Track Capstone: "AI
 ## Requirements Summary (from CLAUDE.md)
 
 ### Core Functionality
+
 1. **Image Understanding Pipeline**: Process ~50 images through vision model → structured metadata (subject, category, attributes, caption, confidence) → schema validation → embeddings
 2. **Semantic Matching**: Embed image captions and post text in same space → cosine similarity → ranked candidates
 3. **Mismatch Guard**: Separate module combining tags, similarity score, vision confidence, tuned thresholds → reject mismatches (e.g., wolf for fox post) with human-readable explanations
@@ -17,6 +19,7 @@ This plan implements the complete FlyRank Internship Backend Track Capstone: "AI
 7. **Evaluation**: 10+ labeled posts, top-1 precision metric, threshold tuned on eval data
 
 ### Technology Choices (Confirmed)
+
 - **Backend**: Python + FastAPI (simpler for ML/AI, better Pydantic integration)
 - **Schema**: Pydantic
 - **Database**: PostgreSQL + pgvector (cleaner for vector search)
@@ -26,6 +29,7 @@ This plan implements the complete FlyRank Internship Backend Track Capstone: "AI
 - **Image Dataset**: Download script from curated Unsplash/Pexels URLs with **recorded source provider, URL, license, checksum, and expected category per image**
 
 ### Required Files
+
 - README.md, capstone.yaml, EVIDENCE.md, BUILDLOG.md, .env.example, .gitignore, LICENSE
 - Database migrations, seed script, evaluation script, Docker config
 
@@ -33,36 +37,49 @@ This plan implements the complete FlyRank Internship Backend Track Capstone: "AI
 
 ## Implementation Plan
 
-### Phase 1: DESIGN (Week 1)
+### Phase 1: DESIGN (Week 1) ✅ COMPLETE
+
 **Deliverable**: Committed design document with problem statement, data model, API surface, layer sketch, non-goals, matching strategy, mismatch guard rules, database design, dataset plan.
 
 **Tasks**:
-1. Create design document (DESIGN.md)
-2. Define Pydantic schemas for vision output, embeddings, API requests/responses
-3. Design database schema (images, image_metadata, embeddings, posts, suggestions, approvals, jobs, costs, tenants)
-4. Design API endpoints
-5. Define mismatch guard rules and threshold tuning approach
-6. Plan ~50 image dataset (categories: red fox, wolf, dog, bear, deer + 10 eval posts)
 
-### Phase 2: IMAGE UNDERSTANDING PIPELINE (Week 2)
+1. ✅ Create design document (DESIGN.md)
+2. ✅ Define Pydantic schemas for vision output, embeddings, API requests/responses
+3. ✅ Design database schema (images, image_metadata, embeddings, posts, suggestions, approvals, jobs, costs, tenants)
+4. ✅ Design API endpoints
+5. ✅ Define mismatch guard rules and threshold tuning approach
+6. ✅ Plan ~50 image dataset (categories: red fox, wolf, dog, bear, deer + 10 eval posts)
+
+### Phase 2: IMAGE UNDERSTANDING PIPELINE (Week 2) 🔄 IN PROGRESS
+
 **Deliverable**: All seed images processed with schema-valid metadata, costs visible.
 
 **Tasks**:
-1. Set up PostgreSQL + pgvector via Docker Compose
-2. Create database migrations (Alembic)
-3. Implement Pydantic schemas for vision output
-4. Integrate Ollama vision model (**bakllava:7b**)
-5. Implement schema validation with retry logic
-6. Implement low-confidence flagging
-7. Build background batch processor (DB-based queue)
-8. Implement per-call cost tracking (record as $0 for local models)
-9. Create seed script to download ~50 license-free images
-10. Process all images through pipeline
+
+1. ✅ Set up PostgreSQL + pgvector via Docker Compose
+2. ⏳ Create database migrations (Alembic) - NOT DONE YET
+3. ✅ Implement Pydantic schemas for vision output (app/schemas/vision.py)
+4. ✅ Integrate Ollama vision model (**bakllava:7b**) (app/services/vision.py)
+5. ✅ Implement schema validation with retry logic (app/services/vision.py)
+6. ✅ Implement low-confidence flagging (app/services/vision.py)
+7. ⏳ Build background batch processor (DB-based queue) - NOT DONE YET
+8. ✅ Implement per-call cost tracking (record as $0 for local models) (app/services/cost.py)
+9. ⏳ Create seed script to download ~50 license-free images - NOT DONE YET
+10. ⏳ Process all images through pipeline - NOT DONE YET
+11. ✅ Write tests FIRST (TDD):
+    - ✅ test_schemas_vision.py - VisionOutput schema validation tests
+    - ✅ test_vision_service.py - VisionService with retries, schema validation
+    - ✅ test_cost_service.py - CostService with budget guard
+    - ✅ test_batch_processor.py - Job/Image/Cost repositories, batch processor skeleton
+12. ⏳ Implement remaining code to make tests pass
+13. ⏳ Run Phase 2 acceptance checks and report results
 
 ### Phase 3: MATCHING ENGINE (Week 3)
+
 **Deliverable**: Fox post ranks fox first, wolf rejected, no-match returns "no confident match".
 
 **Tasks**:
+
 1. Implement embedding generation (Ollama **nomic-embed-text** only)
 2. Store image embeddings (from captions) and post embeddings
 3. Implement cosine similarity search
@@ -77,9 +94,11 @@ This plan implements the complete FlyRank Internship Backend Track Capstone: "AI
 8. Verify acceptance probes 1-4
 
 ### Phase 4: PRODUCTION LAYER (Week 4)
+
 **Deliverable**: All 6 acceptance probes pass, all required files complete.
 
 **Tasks**:
+
 1. Implement review API (approve/reject/inspect)
 2. Build evaluation script (top-1 precision)
 3. Generate README.md with architecture diagram, run instructions, precision result
@@ -95,15 +114,15 @@ This plan implements the complete FlyRank Internship Backend Track Capstone: "AI
 
 ## Key Technical Decisions
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| Backend | Python + FastAPI | Better ML ecosystem, Pydantic native |
-| Vision Model | Ollama **BakLLaVA 7B (bakllava:7b)** | Local, $0, reproducible |
-| Embedding Model | Ollama **nomic-embed-text** | Local, $0, good semantic quality |
-| Vector Search | pgvector + cosine similarity | Built into Postgres, no extra infra |
-| Background Jobs | DB-based queue table | Simple, no Redis, sufficient for 50 images |
-| Cost Tracking | DB table with $0 for local | Meets requirement, honest about local costs |
-| Threshold Tuning | **Documented range evaluation with defensible selection rule** | Data-driven, transparent, reproducible |
+| Decision         | Choice                                                         | Rationale                                   |
+| ---------------- | -------------------------------------------------------------- | ------------------------------------------- |
+| Backend          | Python + FastAPI                                               | Better ML ecosystem, Pydantic native        |
+| Vision Model     | Ollama **BakLLaVA 7B (bakllava:7b)**                           | Local, $0, reproducible                     |
+| Embedding Model  | Ollama **nomic-embed-text**                                    | Local, $0, good semantic quality            |
+| Vector Search    | pgvector + cosine similarity                                   | Built into Postgres, no extra infra         |
+| Background Jobs  | DB-based queue table                                           | Simple, no Redis, sufficient for 50 images  |
+| Cost Tracking    | DB table with $0 for local                                     | Meets requirement, honest about local costs |
+| Threshold Tuning | **Documented range evaluation with defensible selection rule** | Data-driven, transparent, reproducible      |
 
 ---
 
@@ -139,17 +158,17 @@ costs (id, tenant_id, operation, model, related_id, tokens, cost_usd, status, cr
 
 ## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/v1/images/ingest | Trigger batch ingestion |
-| GET | /api/v1/images | List images with metadata |
-| GET | /api/v1/images/{id} | Get image details |
-| POST | /api/v1/posts | Create blog post |
-| GET | /api/v1/posts/{id}/images | Get matched images (with guard) |
-| POST | /api/v1/suggestions/{id}/review | Approve/reject suggestion |
-| GET | /api/v1/jobs/{id} | Get job status |
-| GET | /api/v1/costs | Get cost log |
-| POST | /api/v1/eval/run | Run evaluation |
+| Method | Endpoint                        | Description                     |
+| ------ | ------------------------------- | ------------------------------- |
+| POST   | /api/v1/images/ingest           | Trigger batch ingestion         |
+| GET    | /api/v1/images                  | List images with metadata       |
+| GET    | /api/v1/images/{id}             | Get image details               |
+| POST   | /api/v1/posts                   | Create blog post                |
+| GET    | /api/v1/posts/{id}/images       | Get matched images (with guard) |
+| POST   | /api/v1/suggestions/{id}/review | Approve/reject suggestion       |
+| GET    | /api/v1/jobs/{id}               | Get job status                  |
+| GET    | /api/v1/costs                   | Get cost log                    |
+| POST   | /api/v1/eval/run                | Run evaluation                  |
 
 ---
 
@@ -181,6 +200,7 @@ costs (id, tenant_id, operation, model, related_id, tokens, cost_usd, status, cr
 ## Verification Strategy
 
 Each phase ends with a verification gate:
+
 - Phase 1: Design document committed
 - Phase 2: `curl` batch job → all images processed, costs logged
 - Phase 3: `curl` fox post → correct ranking, wolf rejected
@@ -191,6 +211,7 @@ Each phase ends with a verification gate:
 ## Next Steps
 
 Upon approval, I'll:
+
 1. Create DESIGN.md with detailed specifications
 2. Set up Docker Compose for Postgres + pgvector + Ollama
 3. Initialize FastAPI project with Pydantic, Alembic
