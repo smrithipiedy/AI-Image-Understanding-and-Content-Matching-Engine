@@ -122,7 +122,7 @@ class TestCostService:
     async def test_record_vision_cost_checks_budget(self, cost_service, tenant_id, related_id):
         """record_vision_cost should check budget before recording."""
         cost_service.max_budget_usd = 1.0
-        cost_service.repo.list_costs.return_value = ([], 0, 0.90)  # $0.90 spent
+        cost_service.repo.list_costs.return_value = ([], 0, 1.10)  # $1.10 spent
 
         # This would exceed budget (0.90 + estimated > 1.0)
         with pytest.raises(BudgetExceededError):

@@ -1,0 +1,402 @@
+[
+  {
+    "url": "https://images.unsplash.com/photo-1474511320723-9a56873867b5",
+    "filename": "red_fox_01.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-1",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1516934024742-b461fba47600",
+    "filename": "red_fox_02.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-2",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6",
+    "filename": "red_fox_03.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-3",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7",
+    "filename": "red_fox_04.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-4",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1575550959106-5a7defe28b56",
+    "filename": "red_fox_05.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-5",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef9",
+    "filename": "red_fox_06.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-6",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1589656966895-2f33e7653819",
+    "filename": "red_fox_07.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-7",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+    "filename": "red_fox_08.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-8",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1507666405769-422406bd8a1b",
+    "filename": "red_fox_09.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-9",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1494256997604-768d1f608cac",
+    "filename": "red_fox_10.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/red-fox-10",
+    "license": "Unsplash License",
+    "expected_category": "red_fox"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1561731216-c3a4d99437d5",
+    "filename": "wolf_01.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-1",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1546182990-dffeafbe841d",
+    "filename": "wolf_02.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-2",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1589656966895-2f33e7653819",
+    "filename": "wolf_03.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-3",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1575550959106-5a7defe28b56",
+    "filename": "wolf_04.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-4",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6",
+    "filename": "wolf_05.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-5",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46",
+    "filename": "wolf_06.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-6",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef",
+    "filename": "wolf_07.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-7",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7",
+    "filename": "wolf_08.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-8",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef9",
+    "filename": "wolf_09.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-9",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+    "filename": "wolf_10.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/wolf-10",
+    "license": "Unsplash License",
+    "expected_category": "wolf"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1543466835-00a7907e9de1",
+    "filename": "dog_01.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-1",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
+    "filename": "dog_02.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-2",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8",
+    "filename": "dog_03.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-3",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1587300003388-59208cc962cb",
+    "filename": "dog_04.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-4",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1552053831-71594a27632d",
+    "filename": "dog_05.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-5",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
+    "filename": "dog_06.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-6",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6",
+    "filename": "dog_07.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-7",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1568640347023-a616a30bc3bd",
+    "filename": "dog_08.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-8",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
+    "filename": "dog_09.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-9",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1517423470514-914c622a5732",
+    "filename": "dog_10.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/dog-10",
+    "license": "Unsplash License",
+    "expected_category": "dog"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d",
+    "filename": "bear_01.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-1",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1573920111312-04f1b25c6b85",
+    "filename": "bear_02.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-2",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1589656966895-2f33e7653819",
+    "filename": "bear_03.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-3",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef9",
+    "filename": "bear_04.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-4",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46",
+    "filename": "bear_05.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-5",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef",
+    "filename": "bear_06.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-6",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7",
+    "filename": "bear_07.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-7",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+    "filename": "bear_08.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-8",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1507666405769-422406bd8a1b",
+    "filename": "bear_09.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-9",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1494256997604-768d1f608cac",
+    "filename": "bear_10.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/bear-10",
+    "license": "Unsplash License",
+    "expected_category": "bear"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1484406566174-9da000fda645",
+    "filename": "deer_01.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-1",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1508873696983-2df515122519",
+    "filename": "deer_02.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-2",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55",
+    "filename": "deer_03.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-3",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1521714161819-15534968fc5f",
+    "filename": "deer_04.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-4",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "filename": "deer_05.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-5",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
+    "filename": "deer_06.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-6",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1511497584788-876761c11969",
+    "filename": "deer_07.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-7",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4",
+    "filename": "deer_08.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-8",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1448375240586-882707db888b",
+    "filename": "deer_09.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-9",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  },
+  {
+    "url": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
+    "filename": "deer_10.jpg",
+    "source_provider": "unsplash",
+    "source_url": "https://unsplash.com/photos/deer-10",
+    "license": "Unsplash License",
+    "expected_category": "deer"
+  }
+]

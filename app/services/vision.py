@@ -56,10 +56,10 @@ Return ONLY valid JSON. No additional text or explanation."""
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=1, max=4),
-        retry=retry_if_exception_type((httpx.RequestError, httpx.HTTPStatusError, VisionSchemaValidationError)),
+        retry=retry_if_exception_type((httpx.RequestError, httpx.HTTPStatusError, VisionProcessingError, VisionSchemaValidationError)),
         reraise=True,
     )
-    async def _call_vision_model(self, image_base64: str) -> dict:
+    async def _call_vision_model(self, image_base64: str) -> VisionOutput:
         """Call Ollama vision model with retry logic."""
         payload = {
             "model": self.model,
@@ -91,14 +91,10 @@ Return ONLY valid JSON. No additional text or explanation."""
                 logger.warning(f"Failed to parse vision model JSON: {response_text[:200]}")
                 raise VisionSchemaValidationError(f"Invalid JSON from model: {e}")
 
-            return parsed
+            return self._validate_vision_output(parsed)
 
-        except httpx.HTTPStatusError as e:
-            logger.error(f"Ollama API error: {e.response.status_code} - {e.response.text}")
-            raise VisionProcessingError(f"Ollama API error: {e.response.status_code}")
-        except httpx.RequestError as e:
-            logger.error(f"Ollama connection error: {e}")
-            raise VisionProcessingError(f"Ollama connection error: {e}")
+        except (httpx.HTTPStatusError, httpx.RequestError):
+            raise
 
     def _validate_vision_output(self, raw_output: dict) -> VisionOutput:
         """Validate raw model output against VisionOutput schema."""
@@ -124,10 +120,7 @@ Return ONLY valid JSON. No additional text or explanation."""
         image_base64 = self._encode_image(image_bytes)
 
         # Call vision model with retries
-        raw_output = await self._call_vision_model(image_base64)
-
-        # Validate against schema
-        validated = self._validate_vision_output(raw_output)
+        validated = await self._call_vision_model(image_base64)
 
         logger.info(f"Vision processing successful: subject={validated.subject}, confidence={validated.confidence}")
         return validated

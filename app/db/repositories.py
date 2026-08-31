@@ -24,7 +24,7 @@ class TenantRepository:
         tenant = await self.get_by_name(name)
         if tenant:
             return tenant
-        tenant = Tenant(name=name)
+        tenant = Tenant(id=uuid.uuid4(), name=name)
         self.session.add(tenant)
         await self.session.flush()
         return tenant
@@ -39,7 +39,7 @@ class ImageRepository:
     async def get_by_id(self, image_id: uuid.UUID, tenant_id: uuid.UUID) -> Optional[Image]:
         result = await self.session.execute(
             select(Image)
-            .options(selectinload(Image.metadata))
+            .options(selectinload(Image.img_metadata))
             .where(Image.id == image_id, Image.tenant_id == tenant_id)
         )
         return result.scalar_one_or_none()
@@ -70,6 +70,7 @@ class ImageRepository:
         expected_category: Optional[str] = None,
     ) -> Image:
         image = Image(
+            id=uuid.uuid4(),
             tenant_id=tenant_id,
             url=url,
             filename=filename,
@@ -104,7 +105,8 @@ class ImageRepository:
 
         # Get total count
         count_query = select(func.count()).select_from(query.subquery())
-        total = await self.session.scalar(count_query) or 0
+        count_res = await self.session.execute(count_query)
+        total = count_res.scalar() or 0
 
         # Get paginated results
         query = query.order_by(Image.created_at.desc()).limit(limit).offset(offset)
@@ -132,6 +134,7 @@ class ImageMetadataRepository:
         is_low_confidence: bool,
     ) -> ImageMetadata:
         metadata = ImageMetadata(
+            id=uuid.uuid4(),
             image_id=image_id,
             subject=subject,
             category=category,
@@ -179,11 +182,13 @@ class JobRepository:
         idempotency_key: Optional[str] = None,
     ) -> Job:
         job = Job(
+            id=uuid.uuid4(),
             tenant_id=tenant_id,
             type=job_type,
             payload=payload,
             idempotency_key=idempotency_key,
             status=JobStatus.PENDING,
+            progress=0,
         )
         self.session.add(job)
         await self.session.flush()
@@ -230,6 +235,7 @@ class CostRepository:
         status: str = "success",
     ) -> Cost:
         cost = Cost(
+            id=uuid.uuid4(),
             tenant_id=tenant_id,
             operation=operation,
             model=model,
@@ -257,10 +263,12 @@ class CostRepository:
 
         # Get total count and sum
         count_query = select(func.count()).select_from(query.subquery())
-        total = await self.session.scalar(count_query) or 0
+        count_res = await self.session.execute(count_query)
+        total = count_res.scalar() or 0
 
         sum_query = select(func.coalesce(func.sum(Cost.cost_usd), 0)).where(Cost.tenant_id == tenant_id)
-        total_cost = await self.session.scalar(sum_query) or 0.0
+        sum_res = await self.session.execute(sum_query)
+        total_cost = sum_res.scalar() or 0.0
 
         # Get paginated results
         query = query.order_by(Cost.created_at.desc()).limit(limit).offset(offset)

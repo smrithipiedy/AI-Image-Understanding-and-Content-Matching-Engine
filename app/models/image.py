@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import Enum as PyEnum
 from sqlalchemy import String, Text, DateTime, func, ForeignKey, Index, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID, JSONB
 from app.core.database import Base
 
 
@@ -50,7 +50,7 @@ class Image(Base):
     )
 
     # Relationships
-    metadata: Mapped["ImageMetadata"] = relationship(
+    img_metadata: Mapped["ImageMetadata"] = relationship(
         "ImageMetadata",
         back_populates="image",
         uselist=False,
@@ -78,7 +78,8 @@ class ImageMetadata(Base):
     )
     subject: Mapped[str] = mapped_column(String(255), nullable=False)  # "red fox"
     category: Mapped[str] = mapped_column(String(100), nullable=False)  # "animal"
-    attributes: Mapped[list] = mapped_column(
+    attributes: Mapped[list[str]] = mapped_column(
+        JSONB,
         default=list,
         nullable=False
     )  # ["orange fur", "wild", "forest"]
@@ -94,7 +95,7 @@ class ImageMetadata(Base):
     )
 
     # Relationships
-    image: Mapped["Image"] = relationship("Image", back_populates="metadata")
+    image: Mapped["Image"] = relationship("Image", back_populates="img_metadata")
 
     __table_args__ = (
         Index("idx_image_metadata_image", "image_id"),

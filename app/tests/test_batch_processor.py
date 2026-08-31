@@ -4,6 +4,7 @@ import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 import uuid
 from datetime import datetime
+from decimal import Decimal
 
 from app.models.job import Job, JobStatus, JobType
 from app.models.image import Image, ImageStatus
@@ -272,38 +273,193 @@ class TestBatchProcessor:
     @pytest.mark.asyncio
     async def test_process_single_image_success(self, mock_session, mock_vision_service, mock_cost_service):
         """Process single image should succeed and update status."""
-        # This test will be implemented after batch processor is written
-        pytest.skip("Batch processor not implemented yet")
+        from app.services.batch_processor import BatchProcessor
+        from app.schemas.vision import VisionOutput
+
+        mock_vision_output = VisionOutput(
+            subject="red fox",
+            category="animal",
+            attributes=["orange fur"],
+            caption="A red fox",
+            confidence=0.95,
+        )
+        mock_vision_service.process_image.return_value = mock_vision_output
+        mock_vision_service.is_low_confidence.return_value = False
+
+        processor = BatchProcessor(
+            session=mock_session,
+            vision_service=mock_vision_service,
+            cost_service=mock_cost_service,
+        )
+        tenant_id = uuid.uuid4()
+        image_id = uuid.uuid4()
+        image_bytes = b"test-bytes"
+
+        success = await processor.process_single_image(tenant_id, image_id, image_bytes)
+
+        assert success is True
+        mock_vision_service.process_image.assert_called_once_with(image_bytes)
+        mock_cost_service.record_vision_cost.assert_called_once()
 
     @pytest.mark.asyncio
     async def test_process_single_image_idempotent(self, mock_session, mock_vision_service, mock_cost_service):
         """Processing same image twice should not duplicate (idempotency)."""
-        pytest.skip("Batch processor not implemented yet")
+        from app.services.batch_processor import BatchProcessor
+        from app.models import Image, ImageStatus
+
+        processor = BatchProcessor(
+            session=mock_session,
+            vision_service=mock_vision_service,
+            cost_service=mock_cost_service,
+        )
+        tenant_id = uuid.uuid4()
+        job_id = uuid.uuid4()
+
+        mock_job = MagicMock()
+        mock_job.payload = {"urls": ["https://example.com/existing.jpg"]}
+        processor.job_repo.get_by_id = AsyncMock(return_value=mock_job)
+
+        existing_image = MagicMock(spec=Image)
+        existing_image.status = ImageStatus.COMPLETED
+        processor.image_repo.get_by_url = AsyncMock(return_value=existing_image)
+
+        await processor.process_job(job_id, tenant_id)
+
+        # Vision service process_image should NOT be called for completed image
+        mock_vision_service.process_image.assert_not_called()
 
     @pytest.mark.asyncio
     async def test_process_single_image_low_confidence_flagged(self, mock_session, mock_vision_service, mock_cost_service):
         """Low confidence image should be flagged."""
-        pytest.skip("Batch processor not implemented yet")
+        from app.services.batch_processor import BatchProcessor
+        from app.schemas.vision import VisionOutput
+
+        mock_vision_output = VisionOutput(
+            subject="gray wolf",
+            category="animal",
+            attributes=["gray fur"],
+            caption="A wolf",
+            confidence=0.45,
+        )
+        mock_vision_service.process_image.return_value = mock_vision_output
+        mock_vision_service.is_low_confidence.return_value = True
+
+        processor = BatchProcessor(
+            session=mock_session,
+            vision_service=mock_vision_service,
+            cost_service=mock_cost_service,
+        )
+        tenant_id = uuid.uuid4()
+        image_id = uuid.uuid4()
+
+        success = await processor.process_single_image(tenant_id, image_id, b"wolf-bytes")
+
+        assert success is True
+        mock_vision_service.is_low_confidence.assert_called_once_with(0.45, threshold=0.70)
 
     @pytest.mark.asyncio
     async def test_process_single_image_vision_failure(self, mock_session, mock_vision_service, mock_cost_service):
         """Vision failure should mark image as failed and record cost."""
-        pytest.skip("Batch processor not implemented yet")
+        from app.services.batch_processor import BatchProcessor
+        from app.services.vision import VisionProcessingError
+
+        mock_vision_service.process_image.side_effect = VisionProcessingError("Vision model timeout")
+
+        processor = BatchProcessor(
+            session=mock_session,
+            vision_service=mock_vision_service,
+            cost_service=mock_cost_service,
+        )
+        tenant_id = uuid.uuid4()
+        image_id = uuid.uuid4()
+
+        success = await processor.process_single_image(tenant_id, image_id, b"bad-bytes")
+
+        assert success is False
+        mock_cost_service.record_failed_cost.assert_called_once()
 
     @pytest.mark.asyncio
     async def test_process_batch_updates_progress(self, mock_session, mock_vision_service, mock_cost_service):
         """Batch processing should update job progress."""
-        pytest.skip("Batch processor not implemented yet")
+        from app.services.batch_processor import BatchProcessor
+        from app.models import ImageStatus
+
+        processor = BatchProcessor(
+            session=mock_session,
+            vision_service=mock_vision_service,
+            cost_service=mock_cost_service,
+        )
+        tenant_id = uuid.uuid4()
+        job_id = uuid.uuid4()
+
+        mock_job = MagicMock()
+        mock_job.payload = {"urls": ["https://example.com/1.jpg", "https://example.com/2.jpg"]}
+        processor.job_repo.get_by_id = AsyncMock(return_value=mock_job)
+        processor.job_repo.update_status = AsyncMock()
+        processor.image_repo.get_by_url = AsyncMock(return_value=None)
+        processor.image_repo.create = AsyncMock(return_value=MagicMock(id=uuid.uuid4(), status=None))
+        processor.fetch_image_bytes = AsyncMock(return_value=b"image-bytes")
+        processor.process_single_image = AsyncMock(return_value=True)
+
+        await processor.process_job(job_id, tenant_id)
+
+        assert processor.job_repo.update_status.call_count >= 2
 
     @pytest.mark.asyncio
     async def test_process_batch_retries_on_failure(self, mock_session, mock_vision_service, mock_cost_service):
         """Batch should retry failed images up to max retries."""
-        pytest.skip("Batch processor not implemented yet")
+        from app.services.batch_processor import BatchProcessor
+
+        processor = BatchProcessor(
+            session=mock_session,
+            vision_service=mock_vision_service,
+            cost_service=mock_cost_service,
+            max_retries=2,
+        )
+        tenant_id = uuid.uuid4()
+        job_id = uuid.uuid4()
+
+        mock_job = MagicMock()
+        mock_job.payload = {"urls": ["https://example.com/fail.jpg"]}
+        processor.job_repo.get_by_id = AsyncMock(return_value=mock_job)
+        processor.job_repo.update_status = AsyncMock()
+        processor.image_repo.get_by_url = AsyncMock(return_value=None)
+        processor.image_repo.create = AsyncMock(return_value=MagicMock(id=uuid.uuid4(), status=None))
+        processor.image_repo.update_status = AsyncMock()
+        processor.fetch_image_bytes = AsyncMock(return_value=b"image-bytes")
+        processor.process_single_image = AsyncMock(return_value=False)
+
+        await processor.process_job(job_id, tenant_id)
+
+        assert processor.process_single_image.call_count == 2
 
     @pytest.mark.asyncio
     async def test_process_batch_exponential_backoff(self, mock_session, mock_vision_service, mock_cost_service):
         """Retries should use exponential backoff."""
-        pytest.skip("Batch processor not implemented yet")
+        from app.services.batch_processor import BatchProcessor
+
+        processor = BatchProcessor(
+            session=mock_session,
+            vision_service=mock_vision_service,
+            cost_service=mock_cost_service,
+            max_retries=2,
+        )
+        tenant_id = uuid.uuid4()
+        job_id = uuid.uuid4()
+
+        mock_job = MagicMock()
+        mock_job.payload = {"urls": ["https://example.com/fail.jpg"]}
+        processor.job_repo.get_by_id = AsyncMock(return_value=mock_job)
+        processor.job_repo.update_status = AsyncMock()
+        processor.image_repo.get_by_url = AsyncMock(return_value=None)
+        processor.image_repo.create = AsyncMock(return_value=MagicMock(id=uuid.uuid4(), status=None))
+        processor.image_repo.update_status = AsyncMock()
+        processor.fetch_image_bytes = AsyncMock(return_value=b"image-bytes")
+        processor.process_single_image = AsyncMock(return_value=False)
+
+        with patch("app.services.batch_processor.asyncio.sleep", new_callable=AsyncMock) as mock_sleep:
+            await processor.process_job(job_id, tenant_id)
+            mock_sleep.assert_called_with(1)
 
 
 class TestCostRepository:
