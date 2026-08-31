@@ -1,0 +1,40 @@
+name: flyrank-capstone-image-relevance
+version: 1.0.0
+description: AI Image Understanding & Content Matching Engine Backend
+
+commands:
+  run: uvicorn app.main:app --host 0.0.0.0 --port 8000
+  seed: python scripts/seed.py
+  test: python -m pytest
+  eval: python scripts/eval_precision.py
+
+config:
+  base_url: http://localhost:8000
+  api_prefix: /api/v1
+  tenant_id: demo-tenant
+
+endpoints:
+  health:
+    path: /health
+    method: GET
+  ingest_images:
+    path: /api/v1/images/ingest
+    method: POST
+  job_status:
+    path: /api/v1/jobs/{id}
+    method: GET
+  list_images:
+    path: /api/v1/images
+    method: GET
+  create_post:
+    path: /api/v1/posts
+    method: POST
+  match_post_images:
+    path: /api/v1/posts/{id}/matches
+    method: GET
+  review_suggestion:
+    path: /api/v1/suggestions/{id}/approval
+    method: POST
+  list_costs:
+    path: /api/v1/costs
+    method: GET

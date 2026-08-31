@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     )
 
     # App
+    app_name: str = Field(default="FlyRank Capstone API", alias="APP_NAME")
     app_host: str = Field(default="0.0.0.0", alias="APP_HOST")
     app_port: int = Field(default=8000, alias="APP_PORT")
     tenant_id: str = Field(default="demo-tenant", alias="TENANT_ID")
