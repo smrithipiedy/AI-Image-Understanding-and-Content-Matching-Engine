@@ -4,7 +4,7 @@ import pytest
 import asyncio
 from unittest.mock import AsyncMock, MagicMock
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models import Tenant, Image, ImageMetadata, Job, Cost
@@ -50,7 +50,7 @@ def mock_tenant(sample_tenant_id):
     tenant = MagicMock(spec=Tenant)
     tenant.id = sample_tenant_id
     tenant.name = "demo-tenant"
-    tenant.created_at = datetime.utcnow()
+    tenant.created_at = datetime.now(timezone.utc)
     return tenant
 
 
@@ -68,8 +68,8 @@ def mock_image(sample_image_id, sample_tenant_id):
     image.license = "Unsplash License"
     image.expected_category = "red_fox"
     image.status = ImageStatus.PENDING
-    image.created_at = datetime.utcnow()
-    image.updated_at = datetime.utcnow()
+    image.created_at = datetime.now(timezone.utc)
+    image.updated_at = datetime.now(timezone.utc)
     return image
 
 
@@ -86,8 +86,8 @@ def mock_image_metadata(sample_image_id):
     metadata.confidence = 0.94
     metadata.vision_model = "bakllava:7b"
     metadata.is_low_confidence = False
-    metadata.validated_at = datetime.utcnow()
-    metadata.created_at = datetime.utcnow()
+    metadata.validated_at = datetime.now(timezone.utc)
+    metadata.created_at = datetime.now(timezone.utc)
     return metadata
 
 
@@ -103,7 +103,7 @@ def mock_job(sample_job_id, sample_tenant_id):
     job.payload = {"urls": ["https://example.com/image.jpg"]}
     job.error = None
     job.idempotency_key = "test-key"
-    job.created_at = datetime.utcnow()
+    job.created_at = datetime.now(timezone.utc)
     job.started_at = None
     job.completed_at = None
     return job
@@ -123,5 +123,5 @@ def mock_cost():
     cost.tokens_output = 50
     cost.cost_usd = 0.0
     cost.status = "success"
-    cost.created_at = datetime.utcnow()
+    cost.created_at = datetime.now(timezone.utc)
     return cost

@@ -1,7 +1,7 @@
 """Database repositories for data access."""
 
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 from sqlalchemy import select, func, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -143,7 +143,7 @@ class ImageMetadataRepository:
             confidence=confidence,
             vision_model=vision_model,
             is_low_confidence=is_low_confidence,
-            validated_at=datetime.utcnow(),
+            validated_at=datetime.now(timezone.utc),
         )
         self.session.add(metadata)
         await self.session.flush()
